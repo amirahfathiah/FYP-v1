@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<link rel="stylesheet" type="text/css" href="main.css">
+<script src = "login.js" type="text/javascript"></script>
+<!-- JavaScript -->
+<script>
+function openNav() {
+  document.getElementById("mySidebar").style.width = "200px";
+  document.getElementById("main").style.marginLeft = "200px";
+}
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+
+document.getElementById('select-all').onclick = function() {
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  for (var checkbox of checkboxes) {
+    checkbox.checked = this.checked;
+  }
+}
+
+ function checkAll(checkname, bx) {
+        for (i = checkname.length; i--; )
+            checkname[i].checked = bx.checked;
+    }    
+
+function checkPage(bx){                    
+    for (var tbls = document.getElementsByTagName("table"),i=tbls.length; i--; )
+        for (var bxs=tbls[i].getElementsByTagName("input"),j=bxs.length; j--; )
+           if (bxs[j].type=="checkbox")
+               bxs[j].checked = bx.checked;
+}
+
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+</head>
+<body>
+<!-- top navigation -->
+<div style='background-color: #93B5EF; text-align: center;'>
+<button class="topHeader"></button>  
+<img src="images/expand.png" class = "imageL" alt="hide menu"  onclick="openNav()">
+<img src="images/skse.png" class = "imageL" alt="hide menu">
+<img src="images/User.png" alt="Logout" onclick="window.location.href = '/';"  class = "imageR">
+<img src="images/task-icon-png-3.png" onclick="window.location.href = '#';" class = "imageR" alt="Task">
+<a href="#" >
+  <img src="images/notification.png" onclick="window.location.href = '#';" class = "imageR" alt="Notification">
+  <!-- <p class="badge">3</p> -->
+</a>
+</div>
+<!-- Sidebar -->
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="#">E Tugasan</a>
+  <a href="#">E Kehadiran</a>
+</div>       
+
+
+<div id="main">
+
+<div style="box-shadow: 0 8px 6px -6px black;">
+<ul>
+    <li><a href="#utama">Utama</a></li>
+    <li><a class="current" href="/completeProfile">Atur Tugasan</a></li>
+    <li ><a href="/pengurusanTugas">Pengurusan Tugas</a></li>  
+    <li ><a href="#about">Ketersediaan</a></li>
+</ul>
+
+<div class="dropdown">
+  <button class="dropbtn">Mesyuarat</button>
+  <div class="dropdown-content">
+          <a href="/manageMeetingInvitation">Atur Jemputan</a>
+          <a href="/meetingInfo">Minit Mesyuarat</a>
+          <a href="/viewMeetingInfo">Senarai Minit Mesyuarat</a>
+      </div>  
+      </div>
+</div>
+
+  <div class="container"> <!-- Form -->
+    
+  <h2><b>Atur Tugasan</b></h2>
+
+   <form action="/pengurusanTugas" method="POST">
+  <!-- <form action="/quotes" method="POST"> -->
+     <div class="row">
+       <div class="col-25">
+      <label for="peranan">Peranan</label></div>
+           <div class="col-75" style="font-size: 15px;">
+          <input type="radio" id="peranan" name="peranan" value="Penyerah Tugas" required>Penyerah Tugas</div></div>
+
+    <div class="row">
+      <div class="col-25">
+      <label for="taskCategory">Kategori * </label>
+        </div>
+        <div class="col-75">
+          <select id="taskCategory" name="task" required>
+            <option value="Tugasan Sekolah">Tugasan Sekolah</option>
+            <option value="Luar Sekolah">Luar Sekolah</option>
+            <option value="Tugasan Umum">Tugasan Umum</option>
+          </select>
+        </div></div>
+
+         <div class="row">
+       <div class="col-25">
+      <label for="tarikh">Tarikh * </label></div>
+           <div class="col-75">
+          <input type="date" id="tarikh" name="tarikh" required></div></div>
+
+       <div class="row">
+       <div class="col-25">
+      <label for="from">Masa</label></div>
+           <div class="col-75">
+          <input type="time" id="timefrom" name="from" >
+          <input type="time" id="timeto" name="to" ></div>   </div>
+
+       <div class="row">
+       <div class="col-25">
+       <label for="Lokasi">Lokasi</label></div>
+       <div class="col-75">
+          <input type="text" id="location" placeholder="Lokasi" name="Lokasi" /></div>
+       </div>
+
+        <div class="row">       
+       <div class="col-25">
+       <label for="Tajuk">Tajuk</label></div>
+       <div class="col-75">
+          <input type="text" id="title" placeholder="Tajuk" name="Tajuk" /></div></div>
+
+       <div class="row"> 
+      <div class="col-25">
+      <label for="Nota">Tugas</label></div>
+      <div class="col-75">
+          <input type="text" id="notes" placeholder="Nota" name="Nota" /></div></div>
+
+       <div class="row"> 
+      <div class="col-25">
+      <label for="tarikhakhir">Tarikh Akhir * </label></div>
+      <div class="col-75">
+          <input type="date" id="tarikhakhir" name="tarikhakhir" required>  </div></div>
+
+    <div class="col-25">
+     <label for="tahap">Tahap Kesukaran * </label></div>
+      <div class="col-75">
+        <select id="tahap" name="tahap" required>
+          <option value="Tinggi">Tinggi</option>
+          <option value="Sederhana">Sederhana</option>
+          <option value="Rendah">Rendah</option>
+           <option value="Sangat Rendah">Sangat Rendah</option>
+        </select></div>
+
+      <table style="margin-top: 80px;" action="/getdetails" method = "GET">
+        <tr>
+          <th> <input type="checkbox" onclick="checkPage(this)" id="name1" name="name1" value="name1">Nama</th>
+          <th>Ketersediaan</th>
+          <th>Status Bebanan</th>
+        </tr>
+         <% for(var i = 0; i < userprofile.length; i++) {%>
+        <tr>
+          <td><input type="checkbox" id="name1" name="name1[]" value="<%= userprofile[i].fullname %>"> &nbsp; <%= userprofile[i].fullname %></td>
+          <td>n/a</td>
+          <td>n/a</td>
+        </tr>
+         <% } %>
+      </table>
+      <br>
+           <div id="tasksdiv" class="row" style="margin-right: 15%;">
+            <input id="tasksbtn" type="submit" value="Hantar"></div>
+        </form>
+
+  </div>
+
+</div>
+
+</body>
+</html>
