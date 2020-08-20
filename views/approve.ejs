@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Leave Management</title>
+<link rel="stylesheet" href="/styles.css" />
+
+</head>
+<body>
+    <div style='background-color: #93B5EF; text-align: center;'>
+        <button class="topHeader"></button>  
+        <img src="images/expand.png" class = "imageL" alt="hide menu"   />
+        <img src="images/school.png" class = "imageL" alt="hide menu"   />
+        <img src="images/User.png" alt="Logout"  class = "imageR">
+        <img src="images/task-icon-png-3.png" class = "imageR" alt="Task">
+            <img src="images/notification.png"  class = "imageR" alt="Notification">
+            <p class="badge">3</p>
+        </a>
+        </div>
+
+        <div id="main">
+            <ul class = "nav">
+            <li><a  href="/">Utama</a></li>
+            <li><a href="/hourlyleave">Permohonan</a></li>
+            <li><a class="active" href="/approve">Kelulusan</a></li>
+            
+          </ul> </div>
+<br><br>
+          
+<h1>Kelulusan Permohonan Keluar</h1>
+
+
+<br><br>
+<div class="atable">
+
+<table >
+<tr>
+<th>Nama </th>
+<th>Tarikh</th>
+<th>Masa Keluar</th>
+<th>Masa Masuk</th>
+<th>Perkara</th>
+</tr>
+<% for (var i=0; i<hourlyleave.length; i++) {%>
+<tr>
+<td class="longc">
+    <%= hourlyleave[i].name %> 
+</td>
+<td class="shortb">
+     <%= hourlyleave[i].applydate %>
+</td>
+<td class="shortb">
+    <%= hourlyleave[i].leavetime%>
+</td>
+<td class="shortb">
+    <%= hourlyleave[i].entertime%>
+</td>
+<td class="longb">
+    <%= hourlyleave[i].reason%>
+</td>
+<td style="text-align: center;"><button id="tickbutton" ><img src="images/tick.png"></button> <button id="crossbutton"><img src="images/cross.png"></button></td>
+</tr>
+<%}%>
+</table>
+</div>
+
+
+<script src="/main.js"></script>
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -126,6 +126,75 @@ MongoClient.connect(connectionString,{
   console.log('Connected to Database')
   const db = client.db('mydb')
   //const profile= db.collection('userprofile')
+  const leaveCollection = db.collection('hourlyleave')
+  const attendance = db.collection('attendance')
+  const approvedLeave = db.collection('notification')
+  
+  app.post('/hourlyleave', (req, res) => {
+      leaveCollection.insertOne(req.body)
+      .then(result => {
+        
+  res.render('hourlyy.ejs')
+    
+      })
+      .catch(error => console.error(error))
+  })
+  
+  app.post('/notification', (req, res) => {
+      approvedLeave.insertOne(req.body)
+      .then(result => {
+        
+      console.log('haaiai')
+    
+      })
+      .catch(error => console.error(error))
+  })
+
+
+  app.get('/hourlyleave',(req,res)=>{
+      //const cursor = db.collection('quotes').find().toArray()
+      //.then(results =>{
+          res.render('hourly.ejs')//,{ quotes: results})
+     // })
+     // .catch(error=>console.error(error))
+     
+  })
+
+  app.get('/approved',(req,res)=>{
+
+      res.render('approved.ejs')
+  })
+
+  app.get('/',(req,res)=>{
+      const cursor = db.collection('attendance').find().toArray()
+      .then(results =>{
+          res.render('attendance.ejs',{ attendance: results})
+      })
+      .catch(error=>console.error(error))
+     
+  })
+
+  app.get('/approve',(req,res)=>{
+      const cursor = db.collection('hourlyleave').find().toArray()
+      .then(results =>{
+          res.render('approve.ejs',{ hourlyleave: results})
+      })
+      .catch(error=>console.error(error))
+     
+  })
+
+  app.delete('/approved', (req,res)=>{
+      
+      leaveCollection.deleteOne(
+
+      )
+      .then(result=>{
+          res.json('deleted')
+      })
+      .catch(error => console.error(error))
+
+     
+  })
 
   app.get('/getdetails',(req,res)=>{
     const cursor=db.collection('userprofile').find().toArray()
