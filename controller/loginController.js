@@ -165,7 +165,7 @@ MongoClient.connect(connectionString,{
       res.render('approved.ejs')
   })
 
-  app.get('/',(req,res)=>{
+  app.get('/attendance',(req,res)=>{
       const cursor = db.collection('attendance').find().toArray()
       .then(results =>{
           res.render('attendance.ejs',{ attendance: results})
