@@ -65,16 +65,16 @@ app.get('/meetingInfo', function(req,res){
    });
 
 // Login TO DB==================================================================
-  app.post('/demo',urlencodedParser,function(req,res){
+  app.post('/test',urlencodedParser,function(req,res){
    MongoClient.connect(url, function(err, db) {
    db.collection('userprofile').findOne({ name: req.body.name}, function(err, user) {
              if(user ===null){
               console.log("Empty");
                res.render('error');
             }else if (user.name === req.body.name && user.pass === req.body.pass){
-            const cursor=db.collection('userprofile').find().toArray()
+            const cursor=db.collection('test').find().toArray()
     .then(results=>{
-     res.render('completeprofile.ejs', { userprofile: results })
+     res.render('test.ejs', { test: results })
       }).catch(error=>console.error(error))
           } else {
             console.log("Credentials wrong");
@@ -173,6 +173,15 @@ MongoClient.connect(connectionString,{
       .catch(error=>console.error(error))
      
   })
+
+  app.get('/test',(req,res)=>{
+    const cursor = db.collection('test').find().toArray()
+    .then(results =>{
+        res.render('test.ejs',{ test: results})
+    })
+    .catch(error=>console.error(error))
+   
+})
 
   app.get('/approve',(req,res)=>{
       const cursor = db.collection('hourlyleave').find().toArray()

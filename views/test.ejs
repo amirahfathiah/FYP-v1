@@ -81,8 +81,8 @@ window.onclick = function(event) {
 
 <div style="box-shadow: 0 8px 6px -6px black;">
 <ul>
-    <li><a href="/test">Utama</a></li>
-    <li><a class="current" href="/completeProfile">Atur Tugasan</a></li>
+    <li><a class="current" href="/test">Utama</a></li>
+    <li><a  href="/completeProfile">Atur Tugasan</a></li>
     <li ><a href="/pengurusanTugas">Pengurusan Tugas</a></li>  
     <li ><a href="#about">Ketersediaan</a></li>
 </ul>
@@ -99,10 +99,26 @@ window.onclick = function(event) {
 
   <div class="container"> <!-- Form -->
     
-  <h2><b>Atur Tugasan</b></h2>
+  <h2><b>Status Bebanan Keseluruhan</b></h2>
 
-   <form action="/pengurusanTugas" method="POST">
-  <!-- <form action="/quotes" method="POST"> -->
+  <table>
+      <tr>
+<th>Nama</th>
+<th>Status</th>
+</tr>
+<% for (var i=0; i<test.length; i++) {%>
+    <% var one = test[i].meeting + (test[i].hard*3) + (test[i].medium*2) + (test[i].easy*1) + (test[i].out*3) %>
+    <% var percent = Math.round(one/30*100) %>
+<tr>
+    <td>  <%= test[i].name %> </td>
+    <td>  <%= percent %> % </td>
+</tr>
+<%}%>
+  </table>
+
+
+  <!-- <form action="/pengurusanTugas" method="POST">
+  <!-- <form action="/quotes" method="POST"> 
      <div class="row">
        <div class="col-25">
       <label for="peranan">Peranan</label></div>
@@ -175,18 +191,18 @@ window.onclick = function(event) {
           <th>Ketersediaan</th>
           <th>Status Bebanan</th>
         </tr>
-         <% for(var i = 0; i < userprofile.length; i++) {%>
+         <//% for(var i = 0; i < userprofile.length; i++) {%>
         <tr>
-          <td><input type="checkbox" id="name1" name="name1[]" value="<%= userprofile[i].fullname %>"> &nbsp; <%= userprofile[i].fullname %></td>
+          <td><input type="checkbox" id="name1" name="name1[]" value="<//%= userprofile[i].fullname %>"> &nbsp; <//%= userprofile[i].fullname %></td>
           <td>n/a</td>
           <td>n/a</td>
         </tr>
-         <% } %>
+         <//% } %>
       </table>
       <br>
            <div id="tasksdiv" class="row" style="margin-right: 15%;">
             <input id="tasksbtn" type="submit" value="Hantar"></div>
-        </form>
+        </form> -->
 
   </div>
 
