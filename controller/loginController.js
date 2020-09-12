@@ -74,7 +74,7 @@ app.get('/meetingInfo', function(req,res){
             }else if (user.name === req.body.name && user.pass === req.body.pass){
             const cursor=db.collection('test').find().toArray()
     .then(results=>{
-     res.render('test.ejs', { test: results })
+     res.render('test.ejs', { taskpoint: results })
       }).catch(error=>console.error(error))
           } else {
             console.log("Credentials wrong");
@@ -95,6 +95,31 @@ app.get('/meetingInfo', function(req,res){
      console.log("1 document inserted");
      db.close();
       });
+
+      //============ save tasks detail to individual DB =====================
+      //if jsonObj.task=Luar Sekolah, addtoset luar:Tajuk
+      //if jsonObj.task=Tugasan Sekolah, if tahap=tinggi, addtoset tinggi:Tajuk, 
+      //if tahap=Sederhana, addtoset sederhana:Tajuk, if tahap=rendah, addtoset rendah:Tajuk
+      var newvalues = { $addToSet: {luar: jsonObj.Tajuk } };
+      db.collection("taskdetail").updateOne({name: req.body.name11 }, newvalues, function(err, res){
+        if (err) throw err;
+        console.log("1 document updated");
+        db.close();
+         });
+      //====================================================================
+
+      //========= save points to individual DB============
+      //if jsonObj.task=Luar Sekolah, addtoset luar: 1
+      //if jsonObj.task=Tugasan Sekolah, if tahap=tinggi, addtoset tinggi:1, 
+      //if tahap=Sederhana, addtoset sederhana:1, if tahap=rendah, addtoset rendah:1
+      var newvalues2 = { $addToSet: {luar: 1 } };
+      db.collection("taskpoint").updateOne({name: req.body.name11 }, newvalues2, function(err, res){
+        if (err) throw err;
+        console.log("1 document updated");
+        db.close();
+         });
+      //====================================================================
+
       const cursor=db.collection('tasksMgmt').find().toArray()
       .then(results=>{
      res.render('pengurusanTugas.ejs', { tasksMgmt: results })
@@ -175,9 +200,9 @@ MongoClient.connect(connectionString,{
   })
 
   app.get('/test',(req,res)=>{
-    const cursor = db.collection('test').find().toArray()
+    const cursor = db.collection('taskpoint').find().toArray()
     .then(results =>{
-        res.render('test.ejs',{ test: results})
+        res.render('test.ejs',{ taskpoint: results})
     })
     .catch(error=>console.error(error))
    
